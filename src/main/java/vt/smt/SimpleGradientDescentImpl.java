@@ -1,7 +1,6 @@
 package vt.smt;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -27,11 +26,12 @@ public class SimpleGradientDescentImpl implements  GradientDescent {
         double augmentation = epsilon + 1; // average difference between new thetaj and old thetaj
         double theta0 = 0.; //  the bias of the prediction model
         double nextTheta0 = 0.0;
-        final Double thetas[]     = new Double[dataset.length];
-        final double nextThetas[] = new double[dataset.length];
+        final double thetas[]     = new double[dataset[0].length];
+
+        final double nextThetas[] = new double[thetas.length];
 
         while( augmentation > epsilon){
-            for(int t = 0; t < dataset.length; t++){
+            for(int t = 0; t < thetas.length; t++){
                 double accum = 0.;
                 for(double[] sample : dataset){
                     double prediction = approximateFunction(thetas, sample, theta0);
@@ -50,13 +50,13 @@ public class SimpleGradientDescentImpl implements  GradientDescent {
         }
 
         List<Double> res = new ArrayList<>(thetas.length+1);
-        res.set(0, theta0);
-        res.addAll( Arrays.asList(thetas));
+        res.add(theta0);
+        for (double theta : thetas) res.add(theta);
 
         return res;
     }
 
-    private double approximateFunction(Double thetas[], double x[], double theta0){
+    private double approximateFunction(double thetas[], double x[], double theta0){
         for (int i = 0; i < thetas.length ; i++)
            theta0 += thetas[i]*x[i];
 
