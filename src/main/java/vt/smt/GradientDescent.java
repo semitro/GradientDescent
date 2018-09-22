@@ -7,5 +7,5 @@ import java.util.List;
  * @param dataset - rows are values, columns are samples
  */
 public interface GradientDescent {
-    List<Double> minimizeErrorFunction( double[][] dataset, double epsilon, double step);
+    double[] minimizeErrorFunction(double[][] dataset, double epsilon, double step);
 }

@@ -1,7 +1,5 @@
 package vt.smt;
 
-import java.util.List;
-
 /**
  * Created by semitro on 22.09.18.
  */
@@ -15,7 +13,7 @@ public class SimpleGradientDescentImpl implements  GradientDescent {
      *
      */
     @Override
-    public List<Double> minimizeErrorFunction(double[][] dataset, double epsilon, double step) {
+    public double[] minimizeErrorFunction(double[][] dataset, double epsilon, double step) {
         double augmentation = epsilon + 1; // average difference between new thetaj and old thetaj
         double theta0 = 0.; //  the bias of the prediction model
         double nextTheta0 = 0.0;
@@ -40,6 +38,7 @@ public class SimpleGradientDescentImpl implements  GradientDescent {
             System.arraycopy(nextThetas, 0, thetas, 0, thetas.length);
             theta0 = nextTheta0;
         }
+
         return null;
     }
 
