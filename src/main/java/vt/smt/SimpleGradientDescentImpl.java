@@ -53,8 +53,6 @@ public class SimpleGradientDescentImpl implements GradientDescent {
 
             avgError /= thetas.length*dataset.length; // make it average. +1 because of theta0
 
-            System.out.println(avgError);
-
             System.arraycopy(nextThetas, 0, thetas, 0, thetas.length);
             theta0 = nextTheta0;
         }
