@@ -40,10 +40,10 @@ public class GradientDescentSimpleTest {
 
     @Test
     public void multiMany(){
-        double coeffs[] = {0.1, 3., 50.};
+        double coeffs[] = {0.1, -4.7, 50., 3.};
         SimpleGradientDescentImpl descent = new SimpleGradientDescentImpl(
-                makeDataSet(coeffs, 25.,25,30,0 ));
-        System.out.println(descent.minimizeErrorFunction(0.005, 0.00001));
+                makeDataSet(coeffs, 15.,155,90,0.1 ));
+        System.out.println(descent.minimizeErrorFunction(0.85, 0.0001));
     }
 
 

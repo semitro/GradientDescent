@@ -41,17 +41,19 @@ public class SimpleGradientDescentImpl implements GradientDescent {
 
             nextTheta0 += accum* step / dataset.length;
             for (int t = 0; t < thetas.length; t++) {
+                accum = 0.;
                 for (double[] sample : dataset) {
                     double prediction = approximateFunction(thetas, sample, theta0);
                     double diff = sample[sample.length - 1] - prediction;
-                    avgError += diff;
-                    accum +=  diff* sample[t]; // sample[last] = y real
+                    avgError += Math.abs(diff);
+                    accum += diff*sample[t]; // sample[last] = y real
                 }
                 nextThetas[t] += step * accum / dataset.length;
             }
 
             avgError /= thetas.length*dataset.length; // make it average. +1 because of theta0
 
+            System.out.println(avgError);
 
             System.arraycopy(nextThetas, 0, thetas, 0, thetas.length);
             theta0 = nextTheta0;
