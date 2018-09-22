@@ -1,10 +1,20 @@
 package vt.smt;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by semitro on 22.09.18.
  */
 public class SimpleGradientDescentImpl implements  GradientDescent {
 
+
+    public SimpleGradientDescentImpl(double[][] dataset){
+        this.dataset = dataset;
+    }
+
+    private double[][] dataset;
     /*
      *
      * On the one hand, I could not used theta0
@@ -13,11 +23,11 @@ public class SimpleGradientDescentImpl implements  GradientDescent {
      *
      */
     @Override
-    public double[] minimizeErrorFunction(double[][] dataset, double epsilon, double step) {
+    public List<Double> minimizeErrorFunction(double epsilon, double step) {
         double augmentation = epsilon + 1; // average difference between new thetaj and old thetaj
         double theta0 = 0.; //  the bias of the prediction model
         double nextTheta0 = 0.0;
-        final double thetas[]     = new double[dataset.length];
+        final Double thetas[]     = new Double[dataset.length];
         final double nextThetas[] = new double[dataset.length];
 
         while( augmentation > epsilon){
@@ -39,10 +49,14 @@ public class SimpleGradientDescentImpl implements  GradientDescent {
             theta0 = nextTheta0;
         }
 
-        return null;
+        List<Double> res = new ArrayList<>(thetas.length+1);
+        res.set(0, theta0);
+        res.addAll( Arrays.asList(thetas));
+
+        return res;
     }
 
-    private double approximateFunction(double thetas[], double x[], double theta0){
+    private double approximateFunction(Double thetas[], double x[], double theta0){
         for (int i = 0; i < thetas.length ; i++)
            theta0 += thetas[i]*x[i];
 
