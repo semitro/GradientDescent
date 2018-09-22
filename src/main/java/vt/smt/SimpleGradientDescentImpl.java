@@ -24,15 +24,15 @@ public class SimpleGradientDescentImpl implements GradientDescent {
      */
     @Override
     public List<Double> minimizeErrorFunction(double epsilon, double step) {
-        double augmentation = epsilon + 1; // average difference between new thetaj and old thetaj
+        double avgError = epsilon + 1; // average difference between new thetaj and old thetaj
         double theta0 = 0.; //  the bias of the prediction model
         double nextTheta0 = 0.0;
         final double thetas[] = new double[dataset[0].length - 1];
 
         final double nextThetas[] = new double[thetas.length];
 
-        while (augmentation > epsilon) {
-
+        while (Math.abs(avgError) > epsilon) {
+            avgError = 0.;
             double accum = 0.;
             for (double[] sample : dataset) {
                 double prediction = approximateFunction(thetas, sample, theta0);
@@ -40,18 +40,18 @@ public class SimpleGradientDescentImpl implements GradientDescent {
             }
 
             nextTheta0 += accum* step / dataset.length;
-            System.out.println(nextTheta0);
             for (int t = 0; t < thetas.length; t++) {
                 for (double[] sample : dataset) {
                     double prediction = approximateFunction(thetas, sample, theta0);
-                    accum += (sample[sample.length - 1] - prediction) * sample[t]; // sample[last] = y real
+                    double diff = sample[sample.length - 1] - prediction;
+                    avgError += diff;
+                    accum +=  diff* sample[t]; // sample[last] = y real
                 }
                 nextThetas[t] += step * accum / dataset.length;
-                augmentation += nextThetas[t] - thetas[t];
             }
 
-            augmentation += nextTheta0 - theta0;
-            augmentation /= thetas.length + 1; // make it average. +1 because of theta0
+            avgError /= thetas.length*dataset.length; // make it average. +1 because of theta0
+
 
             System.arraycopy(nextThetas, 0, thetas, 0, thetas.length);
             theta0 = nextTheta0;
