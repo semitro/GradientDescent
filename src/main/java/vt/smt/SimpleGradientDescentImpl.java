@@ -28,7 +28,6 @@ public class SimpleGradientDescentImpl implements GradientDescent {
         double theta0 = 0.; //  the bias of the prediction model
         double nextTheta0 = 0.0;
         final double thetas[] = new double[dataset[0].length - 1];
-
         final double nextThetas[] = new double[thetas.length];
 
         while (Math.abs(avgError) > epsilon) {
