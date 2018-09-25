@@ -28,7 +28,7 @@ public class GradientDescentSimpleTest {
     public void testNearly30() {
         double nearly30[][] = {{1.9, 0.9}, {4.1, 8.12}, {1.7, 0.9}, {100.0, 221.12}};
         SimpleGradientDescentImpl descent = new SimpleGradientDescentImpl(nearly30);
-        System.out.println(descent.minimizeErrorFunction(0.00005, 0.00001));
+        System.out.println(descent.minimizeErrorFunction(0.00005, 0.01));
     }
 
 

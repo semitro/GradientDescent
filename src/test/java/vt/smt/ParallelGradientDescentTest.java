@@ -3,6 +3,7 @@ package vt.smt;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,14 +27,15 @@ public class ParallelGradientDescentTest {
 
     @Test
     public void testAngle45() {
-        Double precisely45line[][] = {{1., 1., 1., 1.}, {2., 2., 2., 2.}, {3., 3., 3., 3.}, {300., 300., 300., 300.}};
+        Double precisely45line[][] = {{1., 1., 1., 3.}, {2., 2., 2., 6.}, {3., 3., 3., 9.}, {300., 300., 300., 900.}};
         List<Double[]> data = new ArrayList<>();
         data.add(precisely45line[0]);
         data.add(precisely45line[1]);
         data.add(precisely45line[2]);
+        data.add(precisely45line[3]);
         JavaRDD<Double[]> rdd = sparkContext.parallelize(data);
         GradientDescent descent = new ParallelGradientDescentImpl(rdd);
-        System.out.println(descent.minimizeErrorFunction(0.05, 0.001));
+        System.out.println(descent.minimizeErrorFunction(0.05, 0.000005));
     }
     @Test
     public void verySimple(){
@@ -46,12 +48,16 @@ public class ParallelGradientDescentTest {
         GradientDescent descent = new ParallelGradientDescentImpl(rdd);
         System.out.println(descent.minimizeErrorFunction(0.05, 0.05));
     }
+    @After
+    public void endUp(){
+        sparkContext.stop();
+    }
     @Test
     public void testWithTheta0() {
         Double prec45Line20[][] = {{100., 121.}, {2., 22.}, {3., 25.}, {0.0, 20.}};
         List<Double[]> data = new ArrayList<>(Arrays.asList(prec45Line20));
         JavaRDD<Double[]> rdd = sparkContext.parallelize(data);
         GradientDescent descent = new ParallelGradientDescentImpl(rdd);
-        System.out.println(descent.minimizeErrorFunction(1., 0.001));
+        System.out.println(descent.minimizeErrorFunction(1., 0.000005 ));
     }
 }
