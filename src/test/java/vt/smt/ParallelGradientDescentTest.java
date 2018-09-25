@@ -27,7 +27,7 @@ public class ParallelGradientDescentTest {
 
     @Test
     public void testAngle45() {
-        Double precisely45line[][] = {{1., 1., 1., 3.}, {2., 2., 2., 6.}, {3., 3., 3., 9.}, {300., 300., 300., 900.}};
+        Double precisely45line[][] = {{0.9, 1., 1., 53.1}, {2., 2.5, 2., 56.}, {3., 3., 3., 59.04}, {300., 297., 302., 851.}};
         List<Double[]> data = new ArrayList<>();
         data.add(precisely45line[0]);
         data.add(precisely45line[1]);
@@ -35,7 +35,7 @@ public class ParallelGradientDescentTest {
         data.add(precisely45line[3]);
         JavaRDD<Double[]> rdd = sparkContext.parallelize(data);
         GradientDescent descent = new ParallelGradientDescentImpl(rdd);
-        System.out.println(descent.minimizeErrorFunction(0.05, 0.000005));
+        System.out.println(descent.minimizeErrorFunction(0.5, 0.000005));
     }
     @Test
     public void verySimple(){
@@ -58,6 +58,6 @@ public class ParallelGradientDescentTest {
         List<Double[]> data = new ArrayList<>(Arrays.asList(prec45Line20));
         JavaRDD<Double[]> rdd = sparkContext.parallelize(data);
         GradientDescent descent = new ParallelGradientDescentImpl(rdd);
-        System.out.println(descent.minimizeErrorFunction(1., 0.000005 ));
+        System.out.println(descent.minimizeErrorFunction(1., 0.1 ));
     }
 }
