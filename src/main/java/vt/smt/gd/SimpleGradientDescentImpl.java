@@ -1,4 +1,4 @@
-package vt.smt;
+package vt.smt.gd;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,13 +15,6 @@ public class SimpleGradientDescentImpl implements GradientDescent {
 
     private double[][] dataset;
 
-    /*
-     *
-     * On the one hand, I could not used theta0
-     * and fill every first column of each sample by 1 reducing the algorithm to a more general form
-     * but on the the other, It's cost to much to fill the whole dataset by 1
-     *
-     */
     @Override
     public List<Double> minimizeErrorFunction(double epsilon, double step) {
         double avgError = epsilon + 1; // average difference between new thetaj and old thetaj
