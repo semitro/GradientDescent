@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by semitro on 22.09.18.
+ * Non-parallel batch gradient descent
  */
 public class SimpleGradientDescentImpl implements GradientDescent {
 
@@ -15,6 +15,10 @@ public class SimpleGradientDescentImpl implements GradientDescent {
 
     private double[][] dataset;
 
+    /**
+     * @param epsilon - precision. Less epsilon produces more precision
+     * @param step    - speed of changing of the coefficients
+     **/
     @Override
     public List<Double> minimizeErrorFunction(double epsilon, double step) {
         double avgError = epsilon + 1; // average difference between new thetaj and old thetaj
@@ -31,19 +35,19 @@ public class SimpleGradientDescentImpl implements GradientDescent {
                 accum += sample[sample.length - 1] - prediction;
             }
 
-            nextTheta0 += accum* step / dataset.length;
+            nextTheta0 += accum * step / dataset.length;
             for (int t = 0; t < thetas.length; t++) {
                 accum = 0.;
                 for (double[] sample : dataset) {
                     double prediction = approximateFunction(thetas, sample, theta0);
                     double diff = sample[sample.length - 1] - prediction;
                     avgError += Math.abs(diff);
-                    accum += diff*sample[t]; // sample[last] = y real
+                    accum += diff * sample[t]; // sample[last] = y real
                 }
                 nextThetas[t] += step * accum / dataset.length;
             }
 
-            avgError /= thetas.length*dataset.length; // make it average. +1 because of theta0
+            avgError /= thetas.length * dataset.length; // make it average. +1 because of theta0
 
             System.arraycopy(nextThetas, 0, thetas, 0, thetas.length);
             theta0 = nextTheta0;

@@ -1,13 +1,18 @@
 package vt.smt.gd;
 
 /**
- * Created by semitro on 25.09.18.
+ * Using Linear combination as a model of prediction
+ *
  */
 public class LinearRegression implements CostFunction {
 
     /**
-     *
-     * notice that thetas[len-1] is theta0 (it's the bias)
+     * returns linear combination of x and theta: res = x*thetas + thetas[last]
+     * notice that thetas[theta.len - 1] is the bias,
+     * and x[x.len - 1 ] is not an argument but the actual result
+     * for example, if thetas={1, 2, 4} and x={3, 6, 7} the result is 1*3 + 2*6 + 4
+     * @param thetas - vector of coefficients
+     * @param x - vector of variables
      */
     @Override
     public Double calculateCostFunction(Double thetas[], Double x[]) {

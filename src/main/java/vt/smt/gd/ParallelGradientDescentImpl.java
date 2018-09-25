@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Calculating gradient descent usi in parallel using Spark
+ * Parallel calculating gradient descent using Spark
  */
 public class ParallelGradientDescentImpl implements GradientDescent, Serializable {
 
@@ -21,7 +21,7 @@ public class ParallelGradientDescentImpl implements GradientDescent, Serializabl
 
     @Override
     public List<Double> minimizeErrorFunction(double epsilon, double step) {
-        final Double thetas[] = new Double[dataSet.first().length];
+        final Double thetas[] = new Double[dataSet.first().length]; // the coefficients we're looking for
         Arrays.fill(thetas, 0.);
         double avgErr = epsilon + 1.;
         double prevErr = Double.MAX_VALUE;
@@ -43,15 +43,15 @@ public class ParallelGradientDescentImpl implements GradientDescent, Serializabl
                 for (int i = 0; i < a.length; i++) c[i] = a[i] + b[i];
                 return c;
             });
-
+            final long datasetSize = dataSet.count();
             for (int i = 0; i < thetas.length; i++) {
-                thetas[i] += step * aug[i] / dataSet.count();
-                avgErr += Math.abs(aug[i]) / dataSet.count();
+                thetas[i] += step * aug[i] / datasetSize;
+                avgErr += Math.abs(aug[i]) / datasetSize;
             }
             System.out.println(Arrays.asList(thetas));
             avgErr /= thetas.length;
             System.out.println("avgErr: " + avgErr);
-            if (avgErr > prevErr) break;
+            if (avgErr > prevErr) break; // if the error has increased we don't find better thetas
             prevErr = avgErr;
         }
         return Arrays.asList(thetas);

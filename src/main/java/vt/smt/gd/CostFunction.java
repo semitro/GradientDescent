@@ -3,9 +3,13 @@ package vt.smt.gd;
 import java.io.Serializable;
 
 /**
- * Created by semitro on 25.09.18.
+ * The cost function j(x).
  */
 @FunctionalInterface
 public interface CostFunction extends Serializable {
+    /**
+     @param thetas - coefficients
+     @param x - vector of arguments
+     */
     Double calculateCostFunction(Double[] thetas, Double x[]);
 }
