@@ -7,7 +7,12 @@ import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.junit.Before;
 import org.junit.Test;
-import vt.smt.gd.*;
+import vt.smt.gd.GradientDescent;
+import vt.smt.gd.ParallelGradientDescentImpl;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
 /**
  * Created by semitro on 25.09.18.
@@ -29,14 +34,27 @@ public class FileDatasetTesting {
 
     @Test
     public void test2(){
-        testFileDataset("src/main/resources/dataset23.csv", 5., 0.00000000000005);
+        testFileDataset("src/main/resources/dataset2.csv", 5., 0.00000000000005);
     }
 
     private void testFileDataset(String filename, double epsilon, double speed){
-        CSVRDDFileReader fileReader = new CSVRDDFileReader(sparkContext);
-        JavaRDD<Double[]> dataset = fileReader.readFromFile(filename);
-        GradientDescent gradientDescent = new ParallelGradientDescentImpl(dataset);
-        gradientDescent.minimizeErrorFunction(epsilon, speed);
+        try {
+            System.out.println("Testing gradient descent at File " + filename +
+                    " (" + Files.size(new File(filename).toPath())/(1024)+ " KB)" );
+        } catch (IOException e) {
+            System.err.println("Error during reading file " + filename);
+            e.printStackTrace();
+            return;
+        }
+        System.out.println("with epsilon = " + epsilon + ", speed = " + speed);
+        final CSVRDDFileReader fileReader = new CSVRDDFileReader(sparkContext);
+        final JavaRDD<Double[]> dataset = fileReader.readFromFile(filename);
+        final GradientDescent gradientDescent = new ParallelGradientDescentImpl(dataset);
+
+        final long startTime = System.currentTimeMillis();
+        System.out.println(gradientDescent.minimizeErrorFunction(epsilon, speed));
+        final long endTime = System.currentTimeMillis();
+        System.out.println("Time lapse: " + (endTime - startTime) + " ms");
 
     }
 }
