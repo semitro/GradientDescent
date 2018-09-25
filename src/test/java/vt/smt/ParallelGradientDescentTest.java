@@ -33,7 +33,7 @@ public class ParallelGradientDescentTest {
 
     @Test
     public void testAngle45() {
-        Double precisely45line[][] = {{1., 1.}, {2., 2.}, {3., 3.} };
+        Double precisely45line[][] = {{1.,1.4, 0.9,  1.}, {2., 2.1, 2.1, 2.}, {3.,3.4, 2.9, 3.}, {300., 300., 300.,301.} };
         List<Double[]> data = new ArrayList<>();
         data.add(precisely45line[0]);
         data.add(precisely45line[1]);

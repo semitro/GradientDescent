@@ -1,11 +1,14 @@
 package vt.smt;
 
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.junit.Before;
 import org.junit.Test;
-import vt.smt.gd.*;
+import vt.smt.gd.GradientDescent;
+import vt.smt.gd.ParallelGradientDescentImpl;
 /**
  * Created by semitro on 25.09.18.
  */
@@ -13,17 +16,18 @@ public class FileDatasetTesting {
     private JavaSparkContext sparkContext;
     @Before
     public void init() {
-        SparkConf conf = new SparkConf().setAppName("GD").setMaster("local[1]");
+        SparkConf conf = new SparkConf().setAppName("GD").setMaster("local[*]");
+        Logger.getLogger("akka").setLevel(Level.OFF);
+        Logger.getLogger("org").setLevel(Level.OFF);
         sparkContext = new JavaSparkContext(conf);
     }
 
     @Test
     public void test1(){
         CSVRDDFileReader fileReader = new CSVRDDFileReader(sparkContext);
-        JavaRDD<Double[]> dataset = fileReader.readFromFile("dataset1.csv");
+        JavaRDD<Double[]> dataset = fileReader.readFromFile("src/main/resources/dataset1.csv");
         GradientDescent gradientDescent = new ParallelGradientDescentImpl(dataset);
-        gradientDescent.minimizeErrorFunction(0.5, 0.0005);
-
+        gradientDescent.minimizeErrorFunction(1., 0.005);
 
     }
 }

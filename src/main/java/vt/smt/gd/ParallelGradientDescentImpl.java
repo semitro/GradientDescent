@@ -24,7 +24,7 @@ public class ParallelGradientDescentImpl implements GradientDescent, Serializabl
         final Double thetas[] = new Double[dataSet.first().length];
         Arrays.fill(thetas, 0.);
         double avgErr = epsilon + 1.;
-
+        double prevErr = Double.MAX_VALUE;
         while (avgErr > epsilon) {
             avgErr = 0.;
             final Double aug[] = dataSet.map(sample -> {
@@ -46,15 +46,14 @@ public class ParallelGradientDescentImpl implements GradientDescent, Serializabl
 
             for (int i = 0; i < thetas.length; i++) {
                 thetas[i] += step * aug[i] / dataSet.count();
-                avgErr += Math.abs(aug[i])/ dataSet.count();
+                avgErr += Math.abs(aug[i]) / dataSet.count();
             }
             System.out.println(Arrays.asList(thetas));
-            avgErr /=  thetas.length;
+            avgErr /= thetas.length;
             System.out.println("avgErr: " + avgErr);
+            if (avgErr > prevErr) break;
+            prevErr = avgErr;
         }
         return Arrays.asList(thetas);
     }
-
-
-    // remember about thetas[last]
 }
