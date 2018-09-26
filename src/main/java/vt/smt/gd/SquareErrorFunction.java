@@ -6,7 +6,7 @@ import org.apache.spark.api.java.function.FlatMapFunction;
 import java.util.Collections;
 
 /**
- * Created by semitro on 26.09.18.
+ *  0.5*(y_hat - y)^2 as an estimation of the error
  */
 public class SquareErrorFunction implements ErrorFunction {
     private JavaRDD<Double[]> dataset;

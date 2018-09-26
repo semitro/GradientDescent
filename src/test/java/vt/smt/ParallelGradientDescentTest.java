@@ -36,7 +36,7 @@ public class ParallelGradientDescentTest {
         List<Double[]> data = new ArrayList<>(Arrays.asList(precisely45line));
         JavaRDD<Double[]> rdd = sparkContext.parallelize(data);
         GradientDescent descent = new ParallelGradientDescent(rdd);
-        System.out.println(descent.minimizeErrorFunction(0.01, 0.1));
+        System.out.println(descent.minimizeErrorFunction(0.1, 0.00001));
     }
 
 
