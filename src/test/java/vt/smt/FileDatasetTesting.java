@@ -8,11 +8,12 @@ import org.apache.spark.api.java.JavaSparkContext;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import vt.smt.gd.GradientDescent;
-import vt.smt.gd.ParallelGradientDescentImpl;
+import vt.smt.gd.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.util.Arrays;
 
 /**
  * Created by semitro on 25.09.18.
@@ -22,6 +23,7 @@ public class FileDatasetTesting {
 
     @BeforeClass
     public static void init() {
+        System.out.println("Testing parallel gradient descent on some datasets");
         SparkConf conf = new SparkConf().setAppName("GD").setMaster("local[*]");
         Logger.getLogger("akka").setLevel(Level.OFF);
         Logger.getLogger("org").setLevel(Level.OFF);
@@ -47,16 +49,27 @@ public class FileDatasetTesting {
             e.printStackTrace();
             return;
         }
+
         System.out.println("with epsilon = " + epsilon + ", speed = " + speed);
         final CSVRDDFileReader fileReader = new CSVRDDFileReader(sparkContext);
         JavaRDD<Double[]> dataset = null;
         dataset = fileReader.readFromFile(filename);
+        Double[] thetas = new Double[dataset.first().length];
+        System.out.println(thetas.length + " variables are presented in");
+        Arrays.fill(thetas, 0.);
         final GradientDescent gradientDescent = new ParallelGradientDescentImpl(dataset);
+        final ErrorFunction errorFunction = new SquareErrorFunction(dataset);
+        final Double initalError = errorFunction.computeError(thetas, new LinearRegression());
+        System.out.println("Error function with default coefficients: " + initalError);
 
         final long startTime = System.currentTimeMillis();
-        System.out.println(gradientDescent.minimizeErrorFunction(epsilon, speed));
+        thetas = (Double[])gradientDescent.minimizeErrorFunction(epsilon, speed).toArray();
         final long endTime = System.currentTimeMillis();
-        System.out.println("Time lapse: " + (endTime - startTime) + " ms");
 
+        System.out.println("Got these thetas: \n" + Arrays.asList(thetas));
+        final Double resultError = errorFunction.computeError(thetas, new LinearRegression());
+        System.out.printf("Error function after the descent: %.2f\n", resultError);
+        System.out.println("Time lapse: " + (endTime - startTime) + " ms");
+        assert resultError < initalError;
     }
 }
