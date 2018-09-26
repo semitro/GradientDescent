@@ -9,7 +9,7 @@ import java.util.List;
 public class SimpleGradientDescent implements GradientDescent {
 
 
-    public SimpleGradientDescent(double[][] dataset) {
+    public SimpleGradientDescent(final double[][] dataset) {
         this.dataset = dataset;
     }
 
@@ -20,7 +20,7 @@ public class SimpleGradientDescent implements GradientDescent {
      * @param step    - speed of changing of the coefficients
      **/
     @Override
-    public List<Double> minimizeErrorFunction(double epsilon, double step) {
+    public List<Double> minimizeErrorFunction(final double epsilon, final double step) {
         double avgError = epsilon + 1; // average difference between new thetaj and old thetaj
         double theta0 = 0.; //  the bias of the prediction model
         double nextTheta0 = 0.0;
@@ -60,7 +60,7 @@ public class SimpleGradientDescent implements GradientDescent {
         return res;
     }
 
-    private double approximateFunction(double thetas[], double x[], double theta0) {
+    private double approximateFunction(final double thetas[], final double x[], double theta0) {
         for (int i = 0; i < thetas.length; i++)
             theta0 += thetas[i] * x[i];
 

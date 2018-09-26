@@ -3,7 +3,7 @@ package vt.smt;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import vt.smt.gd.*;
-import vt.smt.io.CSVRDDFileReader;
+import vt.smt.io.CsvRddFileReader;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +17,7 @@ import java.util.Arrays;
 public class FileDemonstrativeHandling {
     private JavaSparkContext sparkContext;
 
-    public FileDemonstrativeHandling(JavaSparkContext javaSparkContext){
+    public FileDemonstrativeHandling(final JavaSparkContext javaSparkContext){
        this.sparkContext = javaSparkContext;
     }
 
@@ -37,9 +37,8 @@ public class FileDemonstrativeHandling {
         }
 
         System.out.println("with epsilon = " + epsilon + ", speed = " + speed);
-        final CSVRDDFileReader fileReader = new CSVRDDFileReader(sparkContext);
-        JavaRDD<Double[]> dataset = null;
-        dataset = fileReader.readFromFile(filename);
+        final CsvRddFileReader fileReader = new CsvRddFileReader(sparkContext);
+        JavaRDD<Double[]> dataset = fileReader.readFromFile(filename);
         Double[] thetas = new Double[dataset.first().length];
         System.out.println(thetas.length + " variables are presented in");
         Arrays.fill(thetas, 0.);

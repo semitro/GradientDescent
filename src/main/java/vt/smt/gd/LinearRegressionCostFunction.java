@@ -2,7 +2,6 @@ package vt.smt.gd;
 
 /**
  * Using Linear combination as a model of prediction
- *
  */
 public class LinearRegressionCostFunction implements CostFunction {
 
@@ -15,7 +14,7 @@ public class LinearRegressionCostFunction implements CostFunction {
      * @param x - vector of variables
      */
     @Override
-    public Double calculateCostFunction(Double thetas[], Double x[]) {
+    public Double calculateCostFunction(final Double thetas[],final Double x[]) {
         if (x.length - thetas.length < 0)
             throw new IllegalArgumentException("len of x must be no less than thetas len");
 

@@ -8,15 +8,15 @@ import java.util.Arrays;
 /**
  * Created by semitro on 25.09.18.
  */
-public class CSVRDDFileReader {
+public class CsvRddFileReader {
 
     private JavaSparkContext sparkContext;
 
-    public CSVRDDFileReader(JavaSparkContext context) {
+    public CsvRddFileReader(final JavaSparkContext context) {
         this.sparkContext = context;
     }
 
-    public JavaRDD<Double[]> readFromFile(String file) {
+    public JavaRDD<Double[]> readFromFile(final String file) {
         JavaRDD<String[]> strings = sparkContext.textFile(file)
                 .map(str -> str.split(","));
         JavaRDD<Double[]> rdd = strings.map(strings1 ->{

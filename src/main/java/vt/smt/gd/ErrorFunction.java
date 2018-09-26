@@ -8,5 +8,5 @@ import java.io.Serializable;
 
 @FunctionalInterface
 public interface ErrorFunction extends Serializable{
-    Double computeError( Double thetas[] , CostFunction predictor);
+    Double computeError(final Double thetas[], final CostFunction predictor);
 }

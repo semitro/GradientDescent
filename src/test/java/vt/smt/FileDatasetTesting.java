@@ -11,7 +11,7 @@ import org.junit.Test;
  * Created by semitro on 25.09.18.
  */
 public class FileDatasetTesting {
-    private static JavaSparkContext sparkContext;
+    private static FileDemonstrativeHandling fileDemonstrativeHandling;
 
     @BeforeClass
     public static void init() {
@@ -19,7 +19,7 @@ public class FileDatasetTesting {
         SparkConf conf = new SparkConf().setAppName("GD").setMaster("local[*]");
         Logger.getLogger("akka").setLevel(Level.OFF);
         Logger.getLogger("org").setLevel(Level.OFF);
-        sparkContext = new JavaSparkContext(conf);
+        fileDemonstrativeHandling = new FileDemonstrativeHandling(new JavaSparkContext(conf));
     }
 
     @Test
@@ -32,7 +32,6 @@ public class FileDatasetTesting {
         testFileDataset("src/main/resources/dataset2.csv", 5., 0.00000000000005);
     }
 
-    private FileDemonstrativeHandling fileDemonstrativeHandling;
 
     private void testFileDataset(String filename, double epsilon, double speed) {
         assert fileDemonstrativeHandling.testFileDataset(filename, epsilon, speed);
