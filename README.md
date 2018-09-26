@@ -20,7 +20,7 @@ After deploying you'll need some datasets. To get ones just execute
 ```bash
 cp ./src/main/resources/*csv ./target
 ```
-Runnung:
+Running:
 ```bash
 
 cd ./target
