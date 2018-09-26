@@ -4,7 +4,7 @@ package vt.smt.gd;
  * Using Linear combination as a model of prediction
  *
  */
-public class LinearRegression implements CostFunction {
+public class LinearRegressionCostFunction implements CostFunction {
 
     /**
      * returns linear combination of x and theta: res = x*thetas + thetas[last]

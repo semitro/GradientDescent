@@ -3,8 +3,9 @@ package vt.smt.gd;
 import java.io.Serializable;
 
 /**
- * Created by semitro on 26.09.18.
+ * Function that computer general error on the whole dataset
  */
+
 @FunctionalInterface
 public interface ErrorFunction extends Serializable{
     Double computeError( Double thetas[] , CostFunction predictor);

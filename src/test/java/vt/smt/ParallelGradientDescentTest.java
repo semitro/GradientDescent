@@ -9,7 +9,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import vt.smt.gd.GradientDescent;
-import vt.smt.gd.ParallelGradientDescentImpl;
+import vt.smt.gd.ParallelGradientDescent;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,7 +35,7 @@ public class ParallelGradientDescentTest {
         Double precisely45line[][] = {{1.,1.4, 0.9,  1.}, {2., 2.1, 2.1, 2.}, {3.,3.4, 2.9, 3.}, {300., 300., 300.,301.} };
         List<Double[]> data = new ArrayList<>(Arrays.asList(precisely45line));
         JavaRDD<Double[]> rdd = sparkContext.parallelize(data);
-        GradientDescent descent = new ParallelGradientDescentImpl(rdd);
+        GradientDescent descent = new ParallelGradientDescent(rdd);
         System.out.println(descent.minimizeErrorFunction(0.01, 0.1));
     }
 

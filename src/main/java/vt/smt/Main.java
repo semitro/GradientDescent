@@ -3,7 +3,8 @@ package vt.smt;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaSparkContext;
 import vt.smt.gd.GradientDescent;
-import vt.smt.gd.ParallelGradientDescentImpl;
+import vt.smt.gd.ParallelGradientDescent;
+import vt.smt.io.CSVRDDFileReader;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -29,7 +30,7 @@ public class Main {
         final CSVRDDFileReader fileReader = new CSVRDDFileReader(sparkContext);
 
 
-        final GradientDescent minimaizer = new ParallelGradientDescentImpl(fileReader.readFromFile(args[1]));
+        final GradientDescent minimaizer = new ParallelGradientDescent(fileReader.readFromFile(args[1]));
         try{
             minimaizer.minimizeErrorFunction(Double.valueOf(args[1]), Double.valueOf(args[2]));
         }catch (NumberFormatException nfe){

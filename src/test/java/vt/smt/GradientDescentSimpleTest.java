@@ -7,7 +7,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import vt.smt.gd.GradientDescent;
-import vt.smt.gd.SimpleGradientDescentImpl;
+import vt.smt.gd.SimpleGradientDescent;
 
 import java.util.Random;
 
@@ -53,7 +53,7 @@ public class GradientDescentSimpleTest {
         }
         System.out.println("]");
         System.out.println("with epsilon = " + epsilon + " speed = " + step);
-        GradientDescent gradientDescent = new SimpleGradientDescentImpl(dataset);
+        GradientDescent gradientDescent = new SimpleGradientDescent(dataset);
         System.out.println("These coefficients were computed:\n"
                 + gradientDescent.minimizeErrorFunction(epsilon, step));
 

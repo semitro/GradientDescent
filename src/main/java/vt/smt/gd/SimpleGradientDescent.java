@@ -6,10 +6,10 @@ import java.util.List;
 /**
  * Non-parallel batch gradient descent
  */
-public class SimpleGradientDescentImpl implements GradientDescent {
+public class SimpleGradientDescent implements GradientDescent {
 
 
-    public SimpleGradientDescentImpl(double[][] dataset) {
+    public SimpleGradientDescent(double[][] dataset) {
         this.dataset = dataset;
     }
 

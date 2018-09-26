@@ -9,12 +9,12 @@ import java.util.List;
 /**
  * Parallel calculating gradient descent using Spark
  */
-public class ParallelGradientDescentImpl implements GradientDescent, Serializable {
+public class ParallelGradientDescent implements GradientDescent, Serializable {
 
     private JavaRDD<Double[]> dataSet;
-    private CostFunction costFunction = new LinearRegression();
+    private CostFunction costFunction = new LinearRegressionCostFunction();
 
-    public ParallelGradientDescentImpl(JavaRDD<Double[]> dataset) {
+    public ParallelGradientDescent(JavaRDD<Double[]> dataset) {
         this.dataSet = dataset;
     }
 

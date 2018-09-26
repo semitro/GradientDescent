@@ -9,6 +9,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import vt.smt.gd.GradientDescent;
 import vt.smt.gd.*;
+import vt.smt.io.CSVRDDFileReader;
 
 import java.io.File;
 import java.io.IOException;
@@ -57,9 +58,9 @@ public class FileDatasetTesting {
         Double[] thetas = new Double[dataset.first().length];
         System.out.println(thetas.length + " variables are presented in");
         Arrays.fill(thetas, 0.);
-        final GradientDescent gradientDescent = new ParallelGradientDescentImpl(dataset);
+        final GradientDescent gradientDescent = new ParallelGradientDescent(dataset);
         final ErrorFunction errorFunction = new SquareErrorFunction(dataset);
-        final Double initalError = errorFunction.computeError(thetas, new LinearRegression());
+        final Double initalError = errorFunction.computeError(thetas, new LinearRegressionCostFunction());
         System.out.println("Error function with default coefficients: " + initalError);
 
         final long startTime = System.currentTimeMillis();
@@ -67,7 +68,7 @@ public class FileDatasetTesting {
         final long endTime = System.currentTimeMillis();
 
         System.out.println("Got these thetas: \n" + Arrays.asList(thetas));
-        final Double resultError = errorFunction.computeError(thetas, new LinearRegression());
+        final Double resultError = errorFunction.computeError(thetas, new LinearRegressionCostFunction());
         System.out.printf("Error function after the descent: %.2f\n", resultError);
         System.out.println("Time lapse: " + (endTime - startTime) + " ms");
         assert resultError < initalError;
