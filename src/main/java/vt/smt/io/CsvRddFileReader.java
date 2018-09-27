@@ -6,7 +6,7 @@ import org.apache.spark.api.java.JavaSparkContext;
 import java.util.Arrays;
 
 /**
- * Created by semitro on 25.09.18.
+ * Class to get JavaRdd<Double[]> from csv file
  */
 public class CsvRddFileReader {
 

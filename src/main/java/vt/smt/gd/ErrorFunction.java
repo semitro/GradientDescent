@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 /**
  * Function that computer general error on the whole dataset
+ * It's J(theta)
  */
 
 @FunctionalInterface

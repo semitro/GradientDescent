@@ -8,7 +8,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * Created by semitro on 25.09.18.
+ * Testing on csv datasets
+ *
  */
 public class FileDatasetTesting {
     private static FileDemonstrativeHandling fileDemonstrativeHandling;

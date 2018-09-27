@@ -14,8 +14,8 @@ import java.nio.file.Files;
 
 public class Main {
     public static void main(String[] args) {
-        if (args.length != 3) {
-            System.out.println("Usage: file.csv epsilon alpha");
+        if (!(args.length == 3 || args.length == 4)) {
+            System.out.println("Usage: file.csv epsilon alpha [master]");
             System.exit(0);
         }
         if (Files.notExists(new File(args[0]).toPath()) ||
@@ -30,7 +30,7 @@ public class Main {
             System.err.println("make sure that epsilon and alpha are real numbers");
             System.exit(2);
         }
-        final SparkConf conf = new SparkConf().setAppName("GD").setMaster("local[*]");
+        final SparkConf conf = new SparkConf().setAppName("GD").setMaster(args.length == 4 ? args[3] : "local[*]");
         final JavaSparkContext sparkContext = new JavaSparkContext(conf);
         Logger.getLogger("akka").setLevel(Level.OFF);
         Logger.getLogger("org").setLevel(Level.OFF);

@@ -27,6 +27,7 @@ public class SimpleGradientDescent implements GradientDescent {
         final double thetas[] = new double[dataset[0].length - 1];
         final double nextThetas[] = new double[thetas.length];
 
+        // see description in ParrallelGradientDescent
         while (Math.abs(avgError) > epsilon) {
             avgError = 0.;
             double accum = 0.;
