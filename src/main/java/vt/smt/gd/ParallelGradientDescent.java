@@ -38,6 +38,7 @@ public class ParallelGradientDescent implements GradientDescent, Serializable {
                 avgErr += Math.abs(aug[i]) / datasetSize;
             }
             avgErr /= thetas.length; // make the error average
+            System.out.println(avgErr);
             if (avgErr > prevErr) break; // if the error has increased we don't find better thetas
             prevErr = avgErr;
         }

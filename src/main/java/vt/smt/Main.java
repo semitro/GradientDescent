@@ -4,6 +4,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.apache.spark.SparkConf;
 import org.apache.spark.api.java.JavaSparkContext;
+import vt.smt.util.FileDemonstrativeHandling;
 
 import java.io.File;
 import java.nio.file.Files;
