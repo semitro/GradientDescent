@@ -1,5 +1,6 @@
 package vt.smt.util;
 
+import org.apache.log4j.LogManager;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import vt.smt.gd.*;
@@ -28,7 +29,7 @@ public class FileDemonstrativeHandling {
      **/
     public boolean testFileDataset(String filename, double epsilon, double speed) {
         try {
-            System.out.println("Testing gradient descent at File " + filename +
+            LogManager.getRootLogger().info("Testing gradient descent at File " + filename +
                     " (" + Files.size(new File(filename).toPath()) / (1024) + " KB)");
         } catch (IOException e) {
             System.err.println("Error during reading file " + filename);
@@ -36,25 +37,26 @@ public class FileDemonstrativeHandling {
             return false;
         }
 
-        System.out.println("with epsilon = " + epsilon + ", speed = " + speed);
+        LogManager.getRootLogger().info("asf");
+        LogManager.getRootLogger().info("with epsilon = " + epsilon + ", speed = " + speed);
         final CsvRddFileReader fileReader = new CsvRddFileReader(sparkContext);
         JavaRDD<Double[]> dataset = fileReader.readFromFile(filename);
         Double[] thetas = new Double[dataset.first().length];
-        System.out.println(thetas.length + " variables are presented in");
+        LogManager.getRootLogger().info(thetas.length + " variables are presented in");
         Arrays.fill(thetas, 0.);
         final GradientDescent gradientDescent = new ParallelGradientDescent(dataset);
         final ErrorFunction errorFunction = new SquareErrorFunction(dataset);
         final Double initialError = errorFunction.computeError(thetas, new LinearRegressionCostFunction());
-        System.out.println("Error function with default coefficients: " + initialError);
+        LogManager.getRootLogger().info("Error function with default coefficients: " + initialError);
 
         final long startTime = System.currentTimeMillis();
         thetas = (Double[]) gradientDescent.minimizeErrorFunction(epsilon, speed).toArray();
         final long endTime = System.currentTimeMillis();
 
-        System.out.println("Got these thetas: \n" + Arrays.asList(thetas));
+        LogManager.getRootLogger().info("Got these thetas: \n" + Arrays.asList(thetas));
         final Double resultError = errorFunction.computeError(thetas, new LinearRegressionCostFunction());
-        System.out.printf("Error function after the descent: %.2f\n", resultError);
-        System.out.println("Time lapse: " + (endTime - startTime) + " ms");
+        LogManager.getRootLogger().info(String.format("Error function after the descent: %.2f\n", resultError));
+        LogManager.getRootLogger().info("Time lapse: " + (endTime - startTime) + " ms");
         return resultError < initialError;
     }
 }
