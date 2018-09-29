@@ -31,7 +31,7 @@ public class Main {
             System.err.println("make sure that epsilon and alpha are real numbers");
             System.exit(2);
         }
-        final SparkConf conf = new SparkConf().setAppName("GD").setMaster(args.length == 4 ? args[3] : "local[*]");
+        final SparkConf conf = args.length == 4 ? new SparkConf().setAppName("GD").setMaster(args[3]) : new SparkConf();
         final JavaSparkContext sparkContext = new JavaSparkContext(conf);
         Logger.getLogger("akka").setLevel(Level.OFF);
         Logger.getLogger("org").setLevel(Level.OFF);
