@@ -16,7 +16,7 @@ public class SquareErrorFunction implements ErrorFunction {
     }
 
     @Override
-    public Double computeError(final Double[] thetas,final CostFunction predictor) {
+    public Double computeError(final Double[] thetas, final CostFunction predictor) {
         return dataset.flatMap((FlatMapFunction<Double[], Double>) sample -> {
             final Double prediction = predictor.calculateCostFunction(thetas, sample);
             final Double realValue = sample[sample.length - 1];

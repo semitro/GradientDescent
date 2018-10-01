@@ -24,7 +24,7 @@ public class ParallelGradientDescentTest {
 
     @Before
     public void init() {
-        SparkConf conf = new SparkConf().setAppName("GD").setMaster("local[1]");
+        SparkConf conf = new SparkConf().setAppName("GD").setMaster("local[*]");
         Logger.getLogger("akka").setLevel(Level.OFF);
         Logger.getLogger("org").setLevel(Level.OFF);
         sparkContext = new JavaSparkContext(conf);
