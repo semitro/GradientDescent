@@ -16,9 +16,8 @@ import java.nio.file.Path;
 
 /**
  * Testing on csv datasets
- *
  */
-public class FileDatasetTesting {
+public class FileDatasetTest {
     private static FileDemonstrativeHandling fileDemonstrativeHandling;
     private static final String fs = System.lineSeparator();
     private static final String datasetsDir = "src"+fs+"main"+fs+"resources" + fs;
@@ -44,9 +43,10 @@ public class FileDatasetTesting {
     }
 
     @Test
-    public void testMillionPoints(){
+    public void testVeryManyPoints(){
         final int datasetSize = 1000000;
         System.out.println("Generating dataset on " + datasetSize + " points with 5 rows");
+        System.out.println("====AWARE: IT'S A LONG TEST :AWARE====");
         final double[] thetasForGeteratedDataset = {2., 12., 85, 107.};
         final double shift = 2.0;
         final DatasetToCsvFileWriter datasetToCsvFileWriter = new DatasetToCsvFileWriter();

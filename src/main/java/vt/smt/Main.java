@@ -10,19 +10,21 @@ import java.io.File;
 import java.nio.file.Files;
 
 /**
- * Created by semitro on 22.09.18.
+ *  Test task on the parallel gradient descent performed by Oshchepkov Artem
  */
 
 public class Main {
     public static void main(String[] args) {
         if (!(args.length == 3 || args.length == 4)) {
-            System.out.println("Usage: file.csv epsilon alpha [master]");
+            System.out.println("Usage: file.csv epsilon alpha master-url");
             System.exit(0);
         }
+
         if (Files.notExists(new File(args[0]).toPath()) ||
                 !Files.isReadable(new File(args[0]).toPath())) {
+
             System.err.println("Error: file " + args[0] + " does not exist (or there's no access to read)");
-            System.exit(1);
+            //System.exit(1);
         }
         try {
             Double.valueOf(args[1]);
@@ -33,6 +35,7 @@ public class Main {
         }
         final SparkConf conf = args.length == 4 ? new SparkConf().setAppName("GD").setMaster(args[3]) : new SparkConf();
         final JavaSparkContext sparkContext = new JavaSparkContext(conf);
+
         Logger.getLogger("akka").setLevel(Level.OFF);
         Logger.getLogger("org").setLevel(Level.OFF);
         final FileDemonstrativeHandling fileDemonstrativeHandling = new FileDemonstrativeHandling(sparkContext);

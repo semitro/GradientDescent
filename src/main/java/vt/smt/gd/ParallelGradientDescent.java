@@ -12,7 +12,7 @@ import java.util.List;
 public class ParallelGradientDescent implements GradientDescent, Serializable {
 
     private JavaRDD<Double[]> dataSet;
-    private CostFunction costFunction = new LinearRegressionCostFunction();
+    private final CostFunction costFunction = new LinearRegressionCostFunction();
 
     public ParallelGradientDescent(final JavaRDD<Double[]> dataset) {
         this.dataSet = dataset;
@@ -38,7 +38,7 @@ public class ParallelGradientDescent implements GradientDescent, Serializable {
                 avgErr += Math.abs(aug[i]) / datasetSize;
             }
             avgErr /= thetas.length; // make the error average
-            System.out.println(avgErr);
+
             if (avgErr > prevErr) break; // if the error has increased we don't find better thetas
             prevErr = avgErr;
         }

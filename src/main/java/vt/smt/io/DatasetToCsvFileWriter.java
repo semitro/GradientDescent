@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 
 /**
- * Created by semitro on 28.09.18.
+ * Put dataset into file in csv format
  */
 public class DatasetToCsvFileWriter {
     public void writeDatasetAsCsv(final Path file, final double[][] dataset) throws IOException {

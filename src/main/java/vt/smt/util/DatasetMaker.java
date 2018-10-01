@@ -3,7 +3,7 @@ package vt.smt.util;
 import java.util.Random;
 
 /**
- * Created by semitro on 28.09.18.
+ * Generate dataset like y = ax + bx + bias  + random
  */
 public class DatasetMaker {
     public double[][] makeDataSet(double[] coeffs, double bias, int size, double max, double scatter) {

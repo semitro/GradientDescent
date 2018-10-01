@@ -6,9 +6,9 @@ package vt.smt;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import vt.smt.gd.GradientDescent;
-import vt.smt.gd.SimpleGradientDescent;
+import vt.smt.gd.*;
 import vt.smt.util.DatasetMaker;
+
 public class GradientDescentSimpleTest {
 
     private final DatasetMaker datasetMaker = new DatasetMaker();
@@ -37,20 +37,18 @@ public class GradientDescentSimpleTest {
     @Test
     public void testWithTheta0() {
         double prec45Line20[][] = {{100., 121.}, {2., 22.}, {3., 25.}, {0.0, 20.}};
-        doTest(prec45Line20, 1., 0.000001);
+        doTest(prec45Line20, 2., 0.00001);
     }
 
     @Test
     public void multiDemens(){
-        double coeffs[] = {0.1, -4.7, 50., 3., -0.77};
-        doTest(datasetMaker.makeDataSet(coeffs, 15., 55, 90, 0.1), 0.85, 0.0001);
+        double coeffs[] = {0.1, -4.7, 27., 3., -0.77};
+        doTest(datasetMaker.makeDataSet(coeffs, 15., 20, 25, 0.1),70., 0.00028);
     }
 
     private void doTest(double[][] dataset, double epsilon, double step){
         System.out.print("Dataset:\n[ ");
-        for (double v : dataset[0]) {
-            System.out.print(Double.toString(v) + " ");
-        }
+        for (double v : dataset[0]) System.out.print(Double.toString(v) + " ");
         System.out.println("]");
         System.out.println("with epsilon = " + epsilon + " speed = " + step);
         GradientDescent gradientDescent = new SimpleGradientDescent(dataset);

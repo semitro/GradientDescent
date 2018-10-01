@@ -37,7 +37,6 @@ public class FileDemonstrativeHandling {
             return false;
         }
 
-        LogManager.getRootLogger().info("asf");
         LogManager.getRootLogger().info("with epsilon = " + epsilon + ", speed = " + speed);
         final CsvRddFileReader fileReader = new CsvRddFileReader(sparkContext);
         JavaRDD<Double[]> dataset = fileReader.readFromFile(filename);
